@@ -1,8 +1,10 @@
+#include <bits/stdc++.h>
+using namespace std;
 class Visitor {
 private:
     int visitorId;
     string name;
-    // Add other visitor attributes
+    // Add other visitor attributes as needed
 
 public:
     Visitor(int id, string n) : visitorId(id), name(n) {}
@@ -21,7 +23,6 @@ public:
 class VisitorManager {
 private:
     vector<Visitor> visitors; // Use a vector to store visitor records
-    // Implement search algorithms (e.g., linear search, binary search)
 
 public:
     // Function to add a new visitor
@@ -30,5 +31,52 @@ public:
         visitors.push_back(newVisitor);
     }
 
-    // Implement functions to search for visitors and manage visitor records
+    // Function to search for a visitor by ID
+    Visitor* searchVisitorById(int id) {
+        for (auto& visitor : visitors) {
+            if (visitor.getVisitorId() == id) {
+                return &visitor;
+            }
+        }
+        return nullptr; // Visitor not found
+    }
+
+    // Function to search for a visitor by name
+    Visitor* searchVisitorByName(string name) {
+        for (auto& visitor : visitors) {
+            if (visitor.getName() == name) {
+                return &visitor;
+            }
+        }
+        return nullptr; // Visitor not found
+    }
+
+    // Add other functions to manage visitor records as needed
 };
+
+int main() {
+    VisitorManager visitorManager;
+
+    // Adding visitors
+    visitorManager.addVisitor(1, "Rahim");
+    visitorManager.addVisitor(2, "Karim");
+    visitorManager.addVisitor(3, "Akash");
+
+    // Search for a visitor by ID
+    Visitor* visitorById = visitorManager.searchVisitorById(2);
+    if (visitorById) {
+        cout << "Visitor ID: " << visitorById->getVisitorId() << ", Name: " << visitorById->getName() << endl;
+    } else {
+        cout << "Visitor not found by ID." << endl;
+    }
+
+    // Search for a visitor by name
+    Visitor* visitorByName = visitorManager.searchVisitorByName("Akash");
+    if (visitorByName) {
+        cout << "Visitor ID: " << visitorByName->getVisitorId() << ", Name: " << visitorByName->getName() << endl;
+    } else {
+        cout << "Visitor not found by name." << endl;
+    }
+
+    return 0;
+}

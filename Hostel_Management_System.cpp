@@ -275,12 +275,12 @@ void hostel::search_room()
 void hostel::room_close()
 {
 
-    ofstream sclear ("room.txt", std::ios::out | std::ios::trunc);
+    ofstream sclear ("room.txt", ios::out | ios::trunc);
     sclear.close();
 
     int i;
     ofstream sinsert;
-    sinsert.open("room.txt", std::ios_base::app);
+    sinsert.open("room.txt", ios_base::app);
     for(i=0; i<rnumber.size()+2; i++)
     {
         if(i==0)
@@ -393,7 +393,7 @@ int hostel::room_position(int num)
 //student_clear() function start=====================================
 void hostel::student_clear()
 {
-    ofstream sclear ("information.txt", std::ios::out | std::ios::trunc);
+    ofstream sclear ("information.txt", ios::out | ios::trunc);
     sclear.close();
 }
 //end student clear function=========================================
@@ -403,7 +403,7 @@ void hostel::student_insert()
 {
     int i;
     ofstream sinsert;
-    sinsert.open("information.txt", std::ios_base::app);
+    sinsert.open("information.txt", ios_base::app);
     for(i=0; i<studentid.size()+2; i++)
     {
         if(i==0)

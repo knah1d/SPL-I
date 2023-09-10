@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
 
@@ -49,10 +49,10 @@ void displayStudentById() {
     int searchId;
     cout<<"Enter Search Id: ";
     cin>>searchId;
-    std::ifstream inFile(filename);
+    ifstream inFile(filename);
 
     if (!inFile) {
-        std::cerr << "Error opening file for reading!" << std::endl;
+        cerr << "Error opening file for reading!" << endl;
         return;
     }
 
@@ -61,12 +61,12 @@ void displayStudentById() {
 
     while (inFile >> student.id) {
         inFile.ignore(); // Consume the newline character after ID
-        std::getline(inFile, student.name);
+        getline(inFile, student.name);
         inFile >> student.age;
 
         if (student.id == searchId) {
-            std::cout << "Student Record Found:\n";
-            std::cout << "ID: " << student.id << ", Name: " << student.name << ", Age: " << student.age << '\n';
+            cout << "Student Record Found:\n";
+            cout << "ID: " << student.id << ", Name: " << student.name << ", Age: " << student.age << '\n';
             found = true;
             break; // Stop searching after finding the record
         }
@@ -77,7 +77,7 @@ void displayStudentById() {
     inFile.close();
 
     if (!found) {
-        std::cout << "Student with ID " << searchId << " not found.\n";
+        cout << "Student with ID " << searchId << " not found.\n";
     }
 }
 };

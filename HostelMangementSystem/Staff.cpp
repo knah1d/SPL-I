@@ -1,8 +1,11 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Staff {
 private:
     int staffId;
     string name;
-    // Add other staff attributes
+    // Add other staff attributes as needed
 
 public:
     Staff(int id, string n) : staffId(id), name(n) {}
@@ -39,5 +42,34 @@ public:
         return nullptr; // Staff member not found
     }
 
+    // Function to print all staff members
+    void printAllStaff() {
+        for (const auto& staff : staffMembers) {
+            cout << "Staff ID: " << staff.getStaffId() << ", Name: " << staff.getName() << endl;
+        }
+    }
+
     // Add other staff management functions as needed
 };
+
+int main() {
+    StaffManager staffManager;
+
+    // Adding staff members
+    staffManager.addStaff(1, "Asif");
+    staffManager.addStaff(2, "Jawad");
+    staffManager.addStaff(3, "Suvo");
+
+    // Retrieve and print staff information
+    Staff* staff = staffManager.getStaffById(2);
+    if (staff) {
+        cout << "Staff ID: " << staff->getStaffId() << ", Name: " << staff->getName() << endl;
+    } else {
+        cout << "Staff member not found." << endl;
+    }
+
+    // Print all staff members
+    staffManager.printAllStaff();
+
+    return 0;
+}
