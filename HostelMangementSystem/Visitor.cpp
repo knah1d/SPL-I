@@ -51,7 +51,6 @@ public:
         return nullptr; // Visitor not found
     }
 
-    // Add other functions to manage visitor records as needed
 };
 
 int main() {

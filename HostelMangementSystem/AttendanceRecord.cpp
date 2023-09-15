@@ -65,7 +65,6 @@ public:
         return "No out-time record found.";
     }
 
-    // Add other functions for attendance reporting and analysis as needed
 };
 
 int main() {

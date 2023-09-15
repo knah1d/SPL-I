@@ -45,7 +45,6 @@ public:
         return false; // User not found or incorrect credentials
     }
 
-    // Add methods for role management, permissions, and access control checks
 };
 
 int main() {

@@ -58,11 +58,10 @@ public:
         }
     }
 
-    // Add other room management functions as needed
 };
 
 int main() {
-    RoomAllocator roomAllocator(1); // Create a room allocator with 10 rooms
+    RoomAllocator roomAllocator(1); // Create a room allocator with 1 room
 
     // Allocate rooms to students
     Student student1("Karim", "Sheikh", 20, 1);

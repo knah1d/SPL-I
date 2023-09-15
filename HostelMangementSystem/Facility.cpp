@@ -36,7 +36,6 @@ public:
         return nullptr; // Facility not found
     }
 
-    // Add other facility management functions as needed
 
     // Function to print all facility names
     void printAllFacilities() {
@@ -55,7 +54,7 @@ int main() {
     facilityManager.addFacility("Library");
 
     // Retrieve and print a facility
-    Facility* facility = facilityManager.getFacilityByName("Readingh");
+    Facility* facility = facilityManager.getFacilityByName("common room");
     if (facility) {
         cout << "Facility Name: " << facility->getFacilityName() << endl;
     } else {
