@@ -69,8 +69,6 @@ public:
 
 int main() {
     AttendanceTracker attendanceTracker;
-
-    // Record attendance
     attendanceTracker.recordAttendance(1, "2023-09-07 09:00 AM", true);
     attendanceTracker.recordAttendance(2, "2023-09-07 09:30 AM", true);
     attendanceTracker.recordAttendance(1, "2023-09-07 04:00 PM", false);
