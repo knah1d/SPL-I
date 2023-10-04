@@ -86,7 +86,7 @@ int main() {
         student2.displayDetails();
     }
 
-    // Deallocate rooms when students leave
+    
     roomAllocator.deallocateRoom(allocatedRoom1);
     roomAllocator.deallocateRoom(allocatedRoom2);
 
