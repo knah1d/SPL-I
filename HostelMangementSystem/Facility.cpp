@@ -52,6 +52,7 @@ int main() {
     facilityManager.addFacility("Window sided room");
     facilityManager.addFacility("Reading");
     facilityManager.addFacility("Library");
+    facilityManager.addFacility("common room");
 
     // Retrieve and print a facility
     Facility* facility = facilityManager.getFacilityByName("common room");
