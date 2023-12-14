@@ -4,7 +4,6 @@ class Visitor {
 private:
     int visitorId;
     string name;
-    // Add other visitor attributes as needed
 
 public:
     Visitor(int id, string n) : visitorId(id), name(n) {}
@@ -17,7 +16,6 @@ public:
         return name;
     }
 
-    // Add other getters and setters as needed
 };
 
 class VisitorManager {

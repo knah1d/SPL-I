@@ -5,7 +5,6 @@ class User {
 private:
     string username;
     string password;
-    // Add other user attributes as needed
 
 public:
     User(string uname, string pwd) : username(uname), password(pwd) {}
@@ -19,20 +18,17 @@ public:
         return password == inputPassword;
     }
 
-    // Add other methods for user authentication and access control
 };
 
 class AccessControl {
 private:
     vector<User> users; // Store user accounts
-    // Use data structures (e.g., arrays, vectors, or hash tables) for access control
 
 public:
     // Function to add a new user
     void addUser(string username, string password) {
         User newUser(username, password);
         users.push_back(newUser);
-        // Implement user registration logic
     }
 
     // Method to authenticate a user by username and password

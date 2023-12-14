@@ -5,7 +5,6 @@ class Staff {
 private:
     int staffId;
     string name;
-    // Add other staff attributes as needed
 
 public:
     Staff(int id, string n) : staffId(id), name(n) {}
@@ -18,7 +17,6 @@ public:
         return name;
     }
 
-    // Add other getters and setters as needed
 };
 
 class StaffManager {

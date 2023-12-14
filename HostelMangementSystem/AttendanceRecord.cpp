@@ -4,8 +4,7 @@ class AttendanceRecord {
 private:
     int studentId;
     string date;
-    bool isInTime; // True for in-time, false for out-time
-    // Add other attendance-related attributes as needed
+    bool isInTime; 
 
 public:
     AttendanceRecord(int id, string d, bool isIn) : studentId(id), date(d), isInTime(isIn) {}
@@ -22,7 +21,6 @@ public:
         return isInTime;
     }
 
-    // Add other getters and setters as needed
 };
 
 class AttendanceTracker {

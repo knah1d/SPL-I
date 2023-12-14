@@ -3,7 +3,6 @@ using namespace std;
 class Facility {
 private:
     string facilityName;
-    // Add other facility attributes as needed
 
 public:
     Facility(string name) : facilityName(name) {}
@@ -12,7 +11,6 @@ public:
         return facilityName;
     }
 
-    // Add other getters and setters as needed
 };
 
 class FacilityManager {

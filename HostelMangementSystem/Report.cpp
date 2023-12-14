@@ -3,7 +3,6 @@ using namespace std;
 class Report {
 private:
     string reportName;
-    // Add other report attributes and data for analytics as needed
 
 public:
     Report(string name) : reportName(name) {}
@@ -12,16 +11,13 @@ public:
         return reportName;
     }
 
-    // Add methods to generate reports and perform analytics
 
-    // Example: Method to generate a sample report
     void generateSampleReport() {
         // Implement report generation logic (sample)
         cout << "Generating report: " << reportName << endl;
         // Add logic to populate the report data
     }
 
-    // Example: Method to perform sample analytics
     void performSampleAnalytics() {
         // Implement analytics logic (sample)
         cout << "Performing analytics for report: " << reportName << endl;
