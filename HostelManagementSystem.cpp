@@ -8,27 +8,25 @@ using namespace std;
 // Class representing a user
 class User {
 
-
 private:
     string username;
     string password;
-
-
-
 
 public:
 
     User(string uname, string pwd) : username(uname), password(pwd) {}
 
     string getUsername() const {
+
         return username;
     }
 
     bool authenticate(string inputPassword) const {
+
         return password == inputPassword;
+
     }
 };
-
 
 
 // Class for access control
@@ -36,25 +34,31 @@ class AccessControl {
 
 
 private:
-    vector<User> users;
 
+    vector<User> users;
 
 public:
 
-
     // Add a new user to the system
     void addUser(string username, string password) {
-        User newUser(username, password);
-        users.push_back(newUser);
-    }
 
+        User newUser(username, password);
+
+        users.push_back(newUser);
+
+    }
     // Authenticate a user based on username and password
 
     bool authenticateUser(string username, string password) {
+
         for (const auto& user : users) {
+
             if (user.getUsername() == username) {
+
                 return user.authenticate(password);
+
             }
+
         }
 
         return false;
@@ -75,26 +79,32 @@ public:
 
     // Setters and getters for personal details
     void setFirstName(const string& fName) {
+
         firstName = fName;
     }
 
     void setLastName(const string& lName) {
+
         lastName = lName;
     }
 
     void setAge(int newAge) {
+
         age = newAge;
     }
 
     string getFirstName() const {
+
         return firstName;
     }
 
     string getLastName() const {
+
         return lastName;
     }
 
     int getAge() const {
+
         return age;
     }
 
@@ -102,13 +112,15 @@ public:
 
     // Display details of the person
     void displayDetails() const {
+
         cout << "Name: " << firstName << " " << lastName << endl;
+
         cout << "Age: " << age << " years old" << endl;
+
     }
 
-
-
 private:
+
     string firstName;
     string lastName;
     int age;
@@ -123,30 +135,39 @@ public:
 
     // Constructor to initialize student details
     Student(const string& firstName, const string& lastName, int age, int studentId)
+
         : Person(firstName, lastName, age), studentId(studentId) {}
 
 
     // Setters and getters for student details
     void setStudentId(int id) {
+
         studentId = id;
     }
 
     int getStudentId() const {
+
         return studentId;
+
     }
 
 
 
     // Display details of the student (overrides displayDetails in Person)
     void displayDetails() const {
+
         Person::displayDetails();
+
         cout << "Student ID: " << studentId << endl;
+
     }
 
 
 
 private:
+
     int studentId;
+
 };
 
 
@@ -156,6 +177,7 @@ class Staff {
 
 
 private:
+
     int staffId;
     string name;
 
@@ -168,11 +190,13 @@ public:
 
     // Getters for staff details
     int getStaffId() const {
+
         return staffId;
     }
 
 
     string getName() const {
+
         return name;
     }
 };
@@ -185,23 +209,32 @@ class StaffManager {
 
 
 private:
+
     vector<Staff> staffMembers;
+
     unordered_map<int, Staff*> staffMap;
 
 
 public:
     // Add a new staff member
     void addStaff(int id, string name) {
+
         Staff newStaff(id, name);
+
         staffMembers.push_back(newStaff);
+
+
         staffMap[id] = &staffMembers.back();
     }
 
     // Get staff member by ID
     Staff* getStaffById(int id) {
+
         if (staffMap.find(id) != staffMap.end()) {
+
             return staffMap[id];
         }
+
         return nullptr;
     }
 
@@ -209,7 +242,9 @@ public:
 
     // Print details of all staff members
     void printAllStaff() {
+
         for (const auto& staff : staffMembers) {
+
             cout << "Staff ID: " << staff.getStaffId() << ", Name: " << staff.getName() << endl;
         }
     }
@@ -222,12 +257,10 @@ class Room {
 
 
 private:
+
     int roomNumber;
     bool occupied;
     vector<Room> rooms;
-
-
-
 
 public:
 
@@ -236,20 +269,25 @@ public:
 
     // Getters for room details
     int getRoomNumber() const {
+
         return roomNumber;
     }
 
     bool isOccupied() const {
+
         return occupied;
+
     }
 
     // Mark the room as occupied
     void occupy() {
+
         occupied = true;
     }
 
     // Mark the room as vacant
     void vacate() {
+
         occupied = false;
     }
 };
@@ -262,14 +300,18 @@ class RoomAllocator {
 
 
 private:
+
     vector<Room> rooms;
 
 
 public:
     // Constructor to initialize rooms
     RoomAllocator(int numRooms) {
+
         for (int i = 1; i <= numRooms; ++i) {
+
             rooms.push_back(Room(i));
+
         }
     }
 
@@ -277,7 +319,9 @@ public:
 
     // function to retrieve the rooms
     const vector<Room>& getRooms() const {
+
         return rooms;
+
     }
 
     // Allocate a room to a student
@@ -286,7 +330,9 @@ public:
         for (auto& room : rooms) {
 
             if (!room.isOccupied()) {
+
                 room.occupy();
+
                 return &room;
 
             }
@@ -350,7 +396,9 @@ public:
     void addFacility(string name) {
 
         Facility newFacility(name);
+
         facilities.push_back(newFacility);
+
         facilityMap[name] = &facilities.back();
 
     }
@@ -361,6 +409,7 @@ public:
     Facility* getFacilityByName(string name) {
 
         if (facilityMap.find(name) != facilityMap.end()) {
+
             return facilityMap[name];
 
         }
@@ -372,6 +421,7 @@ public:
     void printAllFacilities() {
 
         for (const auto& facility : facilities) {
+
             cout << "Facility Name: " << facility.getFacilityName() << endl;
         }
     }
@@ -382,6 +432,7 @@ public:
 class FeeRecord {
 
 private:
+
     int studentId;
     double amount;
 
@@ -463,7 +514,9 @@ public:
         }
     }
     const priority_queue<FeeRecord>& getPendingPayments() const {
+
         return pendingPayments;
+
     }
 
 
