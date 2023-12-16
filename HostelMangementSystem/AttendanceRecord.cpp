@@ -72,11 +72,11 @@ int main() {
     attendanceTracker.recordAttendance(1, "2023-09-07 04:00 PM", false);
 
     // Get the latest in-time and out-time records for a student
-    string latestInTime = attendanceTracker.getLatestInTime(1);
-    string latestOutTime = attendanceTracker.getLatestOutTime(1);
+    string latestInTime = attendanceTracker.getLatestInTime(2);
+    string latestOutTime = attendanceTracker.getLatestOutTime(2);
 
-    cout << "Latest In-Time for Student 1: " << latestInTime << endl;
-    cout << "Latest Out-Time for Student 1: " << latestOutTime << endl;
+    cout << "Latest In-Time for Student 2: " << latestInTime << endl;
+    cout << "Latest Out-Time for Student 2: " << latestOutTime << endl;
 
     return 0;
 }
