@@ -961,6 +961,7 @@ int main() {
     // Access Control Initialization
 
     string complaint;
+    int pin;
     int choice;
     do {
         cout << "1. Create a new user\n";
@@ -1014,8 +1015,13 @@ int main() {
 
             switch (userType) {
                 case 1:
+                    cout << "Enter pin for admin" << endl;
+                    cin >> pin;
+                    if(pin==1234) {
                     // Admin functionality (access to all facilities)
                     cout << "Admin functionality: Access to all facilities.\n";
+                    cout << "Press 0 0 to get all the reports..."<<endl;
+                    }
                     break;
                 case 2:
                     // Regular User functionality
@@ -1032,8 +1038,7 @@ int main() {
 
                         switch (userOption) {
                             case 1:
-                                // View Remaining Payments
-                                // Implement as needed
+
                                 cout << "Viewing remaining payments...\n";
                                 // For example:
                                 // cout << "Remaining Payments: $" << getRemainingPayments(authenticatedUser) << endl;

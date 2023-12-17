@@ -1,1 +1,2 @@
 user1 1234
+admin admin_pass
