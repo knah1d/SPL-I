@@ -2,68 +2,134 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
-// Class representing a user
 class User {
-
 private:
     string username;
     string password;
 
 public:
-
     User(string uname, string pwd) : username(uname), password(pwd) {}
 
     string getUsername() const {
-
         return username;
+    }
+    string getPassword() const {
+        return password;
     }
 
     bool authenticate(string inputPassword) const {
-
         return password == inputPassword;
-
     }
 };
 
-
-// Class for access control
 class AccessControl {
-
-
 private:
-
     vector<User> users;
+    string filename; // File to store usernames and passwords
 
 public:
+    AccessControl(const string& file) : filename(file) {
+        // Load users from the file when the AccessControl object is created
+        loadFromFile();
+    }
 
-    // Add a new user to the system
+    // Add a new user to the system and save to the file
     void addUser(string username, string password) {
-
         User newUser(username, password);
-
         users.push_back(newUser);
 
+        // Save all users to the file
+        saveToFile();
     }
-    // Authenticate a user based on username and password
 
+    // Authenticate a user based on username and password from the file
     bool authenticateUser(string username, string password) {
+        // Load users from the file before attempting authentication
+        loadFromFile();
 
         for (const auto& user : users) {
-
             if (user.getUsername() == username) {
-
                 return user.authenticate(password);
-
             }
-
         }
 
         return false;
     }
+
+private:
+    // Save all users to the file
+    void saveToFile() {
+        ofstream outFile(filename); // Open the file for writing
+        if (outFile.is_open()) {
+            for (const auto& user : users) {
+                outFile << user.getUsername() << " " << user.getPassword() << endl;
+            }
+            outFile.close();
+        } else {
+            cerr << "Unable to open file: " << filename << endl;
+        }
+    }
+
+    // Load users from the file// ...
+
+private:
+    // Load users from the file
+    void loadFromFile() {
+        users.clear(); // Clear existing users
+
+        ifstream inFile(filename);
+        if (inFile.is_open()) {
+            string username, password;
+            while (inFile >> username >> password) {
+                if (isUsernameTaken(username)) {
+                    // If username is taken, prompt for a new one
+                    username = promptForNewUsername(username);
+                }
+                User newUser(username, password);
+                users.push_back(newUser);
+            }
+            inFile.close();
+        } else {
+            cerr << "Unable to open file: " << filename << endl;
+        }
+    }
+
+    // Check if a username is already taken
+    bool isUsernameTaken(const string& username) const {
+        for (const auto& user : users) {
+            if (user.getUsername() == username) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Prompt user for a new username
+    string promptForNewUsername(const string& oldUsername) const {
+        string newUsername;
+        do {
+            cout << "Username '" << oldUsername << "' already exists. Please choose a different username: ";
+            cin >> newUsername;
+        } while (isUsernameTaken(newUsername));
+        return newUsername;
+    }
 };
+
+
+//    bool authenticate(string inputPassword) const {
+
+//        return password == inputPassword;
+
+ //   }
+//};
+
+
+
 
 
 
@@ -808,7 +874,7 @@ public:
 class Hostel {
 
 public:
-    AccessControl accessControl;
+        AccessControl accessControl;
 
     StaffManager staffManager;
 
@@ -826,27 +892,18 @@ public:
 
 
     // Default constructor
-    Hostel()
-
-        : roomAllocator(10)  // Initialize roomAllocator with 10 rooms
-    {
-
+Hostel() : accessControl("AccessControl.txt"), roomAllocator(10) {
         initializeHostel();
-
     }
 
 
     // Initialize the hostel with default data
     void initializeHostel() {
 
-        // Access Control Initialization
 
-        accessControl.addUser("admin", "admin_password");
+        //accessControl.addUser("user1", "password1");
 
-        accessControl.addUser("user1", "password1");
-
-        accessControl.addUser("user2", "password2");
-
+        //accessControl.addUser("user2", "password2");
 
 
         // Staff Management Initialization
@@ -891,26 +948,156 @@ public:
     }
 };
 
+
+
+
+
 // Main function
 int main() {
     Hostel hostel;
     hostel.initializeHostel();
 
-    // Access Control
-    bool authResult1 = hostel.accessControl.authenticateUser("user1", "password1");
-    bool authResult2 = hostel.accessControl.authenticateUser("user2", "wrong_password");
 
-    if (authResult1) {
-        cout << "User1 authenticated successfully." << endl;
-    } else {
-        cout << "User1 authentication failed." << endl;
+    // Access Control Initialization
+
+    string complaint;
+    int choice;
+    do {
+        cout << "1. Create a new user\n";
+        cout << "2. Authenticate an existing user\n";
+        cout << "0 0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                // Create a new user
+                string username, password;
+                cout << "Enter username: ";
+                cin >> username;
+
+                // Check if the username already exists
+                while (hostel.accessControl.authenticateUser(username, "dummy")) {
+                    cout << "Username '" << username << "' already exists. Please choose a different username: ";
+                    cin >> username;
+                }
+
+                cout << "Enter password: ";
+                cin >> password;
+
+                // Add a new user and save to the file
+                hostel.accessControl.addUser(username, password);
+                cout << "User created successfully.\n";
+                break;
+            }
+            case 2: {
+
+        string username, password;
+        cout << "Enter username: ";
+        cin >> username;
+        cout << "Enter password: ";
+        cin >> password;
+
+        // Authenticate the user
+
+
+        if (hostel.accessControl.authenticateUser(username, password)) {
+            cout << "User authenticated successfully.\n";
+
+            // Additional functionality for authenticated user
+            int userType;
+            cout << "\n\nSelect user type:\n";
+            cout << "1. Admin\n";
+            cout << "2. Regular User\n";
+            cout << "Enter your choice: ";
+            cin >> userType;
+
+            switch (userType) {
+                case 1:
+                    // Admin functionality (access to all facilities)
+                    cout << "Admin functionality: Access to all facilities.\n";
+                    break;
+                case 2:
+                    // Regular User functionality
+                    cout << "\n\nRegular User functionality:\n";
+                    int userOption;
+                    do {
+                        cout << "1. View Remaining Payments\n";
+                        cout << "2. Submit Complaint\n";
+                        cout << "3. Search for Room Facility\n";
+                        cout << "4. Book a Room\n";
+                        cout << "0. Back to Main Menu\n";
+                        cout << "Enter your choice: ";
+                        cin >> userOption;
+
+                        switch (userOption) {
+                            case 1:
+                                // View Remaining Payments
+                                // Implement as needed
+                                cout << "Viewing remaining payments...\n";
+                                // For example:
+                                // cout << "Remaining Payments: $" << getRemainingPayments(authenticatedUser) << endl;
+                                break;
+                            case 2:
+                                // Submit Complaint
+                                // Implement as needed
+
+                                cin >> complaint;
+                                hostel.complaintManager.addComplaint(complaint);
+                                cout << "Submitting complaint...\n";
+                                // For example:
+                                // submitComplaint(authenticatedUser);
+                                break;
+                            case 3:
+                                // Search for Room Facility
+                                // Implement as needed
+                                cout << "Searching for room facilities...\n";
+                                // For example:
+                                // searchRoomFacility(authenticatedUser);
+                                break;
+                            case 4:
+                                // Book a Room
+                                // Implement as needed
+                                cout << "Booking a room...\n";
+                                // For example:
+                                // bookRoom(authenticatedUser);
+                                break;
+                            case 0:
+                                cout << "Returning to the main menu...\n";
+                                break;
+                            default:
+                                cout << "Invalid choice. Please enter a valid option.\n";
+                        }
+                    } while (userOption != 0);
+
+                    break;
+                default:
+                    cout << "Invalid user type. Returning to the main menu.\n";
+            }
+        } else {
+            cout << "User authentication failed.\n";
+        }
     }
 
-    if (authResult2) {
-        cout << "User2 authenticated successfully." << endl;
-    } else {
-        cout << "User2 authentication failed." << endl;
-    }
+    // Example functions (replace with your actual implementations)
+    // int getRemainingPayments(User* user) { /* Implement logic */ return 0; }
+    // void submitComplaint(User* user) { /* Implement logic */ }
+    // void searchRoomFacility(User* user) { /* Implement logic */ }
+    // void bookRoom(User* user) { /* Implement logic */ }
+
+    // .
+
+// ...
+
+            case 0:
+                cout << "Exiting the program.\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    } while (choice != 0);
+
+
 
     // Staff Management
     Staff* staff = hostel.staffManager.getStaffById(2);
@@ -982,3 +1169,10 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
